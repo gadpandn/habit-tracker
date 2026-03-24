@@ -1,0 +1,24 @@
+#root {
+  width: 100%; 
+  min-height: 100vh; 
+  padding: 0; 
+  margin: 0;
+}
+
+.app {
+  // display: flex;
+  // flex-direction: column;
+  // flex-basis: 100%;
+
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  /* nice subtle background */
+  background: linear-gradient(180deg, #f6f7fb 0%, #eef1f7 100%);
+  padding: 32px 16px;
+  box-sizing: border-box;
+
+}

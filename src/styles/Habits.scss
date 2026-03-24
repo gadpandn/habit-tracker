@@ -1,0 +1,151 @@
+.wrapper {
+width: min(920px, 100%);
+display: flex;
+flex-direction: column;
+gap: 16px;
+}
+.card {
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(16, 24, 40, 0.08);
+    border: 1px solid rgba(16, 24, 40, 0.06);
+}
+
+.card.form form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+/* FORM CARD */
+.card.form {
+    padding: 18px;
+    }
+.card.form h1,
+.card.form h2 {
+    margin: 0 0 12px 0;
+    font-size: 30px;
+    font-weight: 700;
+    color: #101828;
+}
+    .card.form input {
+    height: 44px;
+    border-radius: 10px;
+    border: 1px solid rgba(16, 24, 40, 0.12);
+    padding: 0 12px;
+    font-size: 15px;
+    outline: none;
+    transition: box-shadow 160ms ease, border-color 160ms ease;
+    }
+    .card.form input:focus {
+    border-color: rgba(59, 130, 246, 0.55);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+    }
+    .card.form form > div {
+    display: flex;  
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    }
+    button {
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid rgba(16, 24, 40, 0.12);
+    background: #ffffff;
+    color: #101828;
+    padding: 0 12px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease, opacity 120ms ease;
+    }
+    button:hover:not(:disabled) {
+    box-shadow: 0 8px 18px rgba(16, 24, 40, 0.10);
+    transform: translateY(-1px);
+    }
+    button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        box-shadow: none;
+        transform: none;
+        }
+        
+        /* Make the first submit button look primary */
+        .card.form button[type="submit"] {
+        background: #2563eb;
+        border-color: #2563eb;
+        color: #fff;
+        }
+        
+        .card.form button[type="submit"]:hover:not(:disabled) {
+        box-shadow: 0 12px 24px rgba(37, 99, 235, 0.25);
+        }
+        
+        /* active filter styling */
+        .activeFilter {
+        font-weight: 700;
+        background: rgba(37, 99, 235, 0.10);
+        border-color: rgba(37, 99, 235, 0.35);
+        color: #1d4ed8;
+        }
+        
+        /* LIST CARD */
+        .visible-habits {
+        padding: 12px;
+        }
+        
+        .visible-habits ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        }
+        
+        /* each habit row */
+        .visible-habits li {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px;
+        border-radius: 12px;
+        background: #fbfcfe;
+        border: 1px solid rgba(16, 24, 40, 0.06);
+        }
+        
+        /* checkbox */
+        .visible-habits li input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        }
+        
+        /* the inline edit input (your 2nd input) */
+        .visible-habits li input:nth-child(2) {
+        flex: 1;               /* key: fill row */
+        min-width: 0;          /* key: prevent overflow in flex row */
+        height: 40px;
+        border-radius: 10px;
+        border: 1px solid rgba(16, 24, 40, 0.10);
+        padding: 0 12px;
+        font-size: 14px;
+        background: #ffffff;
+        }
+        
+        .visible-habits li input:nth-child(2):disabled {
+        background: #f3f4f6;
+        border-color: rgba(16, 24, 40, 0.06);
+        color: rgba(16, 24, 40, 0.55);
+        }
+        
+        /* delete button on row */
+        .visible-habits li button {
+        background: #fff;
+        }
+        
+        .visible-habits li button:hover:not(:disabled) {
+        background: rgba(239, 68, 68, 0.10);
+        border-color: rgba(239, 68, 68, 0.30);
+        }
+
+
+
+
