@@ -1,16 +1,96 @@
-# React + Vite
+# 🧠 Habit Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple and responsive Habit Tracker app to build and maintain daily habits.  
+Built with React and Vite, with support for persistence, import/export, and PWA features.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Live Demo
+👉 https://habittracker-1.netlify.app/
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Features
 
-## Expanding the ESLint configuration
+- ✅ Add and manage daily habits  
+- ✅ Mark habits as completed  
+- ✅ Habit filters - Completed/Active/All 
+- ✅ Persistent data using localStorage  
+- ✅ Import and export habits (JSON)  
+- ✅ Unit tests with Vitest  
+- ✅ CI setup with GitHub Actions  
+- ✅ Deployed on Netlify  
+- ✅ PWA support (installable + offline ready)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠 Tech Stack
+
+- React  
+- Vite  
+- Vitest (Testing)  
+- GitHub Actions (CI)  
+- Netlify (Deployment)  
+
+---
+
+## 📦 Installation (Run Locally)
+
+Clone the repo:
+
+```bash
+git clone https://github.com/gadpandn/habit-tracker.git
+cd habit-tracker
+
+## Install dependencies:
+
+npm install
+
+## Run the app:
+
+npm run dev
+
+## Open in browser:
+
+http://localhost:5173
+#🧪 Run Tests
+npm run test
+
+#For coverage:
+
+npm run coverage
+#⚙️ Build for Production
+npm run build
+
+#Preview build:
+
+npm run preview
+#🔄 CI/CD
+
+Automated testing and build using GitHub Actions
+
+Runs on every push to main branch
+
+📱 PWA Support
+
+Installable on mobile and desktop
+
+Works offline
+
+Custom manifest and icons
+
+📌 Future Improvements
+
+Better UI/UX polish
+
+Reminders/notifications
+
+Backend sync
+
+🙌 Acknowledgements
+
+Built as part of continuous learning and improvement in frontend development.
+
+📬 Feedback
+
+If you have suggestions or feedback, feel free to raise an issue or connect!
