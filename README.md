@@ -65,32 +65,36 @@ npm run build
 #Preview build:
 
 npm run preview
-#🔄 CI/CD
 
-Automated testing and build using GitHub Actions
+## 🔄 CI/CD
 
-Runs on every push to main branch
+- Automated testing and build using GitHub Actions  
+- Runs on every push to main branch  
 
-📱 PWA Support
+---
 
-Installable on mobile and desktop
+## 📱 PWA Support
 
-Works offline
+- Installable on mobile and desktop  
+- Works offline  
+- Custom manifest and icons  
 
-Custom manifest and icons
+---
 
-📌 Future Improvements
+## 📌 Future Improvements
 
-Better UI/UX polish
+- Better UI/UX polish  
+- Reminders/notifications  
+- Backend sync  
 
-Reminders/notifications
+---
 
-Backend sync
-
-🙌 Acknowledgements
+## 🙌 Acknowledgements
 
 Built as part of continuous learning and improvement in frontend development.
 
-📬 Feedback
+---
+
+## 📬 Feedback
 
 If you have suggestions or feedback, feel free to raise an issue or connect!
