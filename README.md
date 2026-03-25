@@ -65,6 +65,7 @@ npm run build
 #Preview build:
 
 npm run preview
+```
 
 ## 🔄 CI/CD
 
