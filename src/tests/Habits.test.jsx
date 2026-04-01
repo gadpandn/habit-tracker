@@ -270,7 +270,7 @@ describe("local storage persistence", () => {
     );
   });
 });
-// describe("local storage persistence", () => {
+
 //   let getSpy, setSpy;
 
 //   beforeEach(() => {
@@ -398,21 +398,55 @@ describe("Import/Export", () => {
     });
       expect(screen.getByDisplayValue("Drink water")).toBeInTheDocument();
   });
- test("Export functionality", async() => {
-    const { input, addButton } = setup();
-    addHabit(input, addButton, "Drink water");
-     const fileInput = document.querySelector('input[type="file"]');
-    const file = new File([
-       JSON.stringify([
-        {"wrong": "schema" }
-      ])
-     ],"habit.json", {type: "application/json"})
+ test("clicking export downloads habits as json file", () => {
+  // mock function to track if "download" (click) was triggered
+  const clickMock = vi.fn();
 
-    fireEvent.change(fileInput, {
-    target: { files: [file] },
-    });
-      expect(screen.getByDisplayValue("Drink water")).toBeInTheDocument();
+  // save original createElement so we can still use it for non-"a" elements
+  // bind ensures "this" remains document
+  const originalCreateElement = document.createElement.bind(document);
+
+  // this will act like our fake <a> tag
+  const fakeLink = {
+    href: "",       // will hold the blob URL
+    download: "",   // will hold file name
+    click: clickMock, // we track if click was called
+  };
+
+  // intercept document.createElement
+  vi.spyOn(document, "createElement").mockImplementation((tagName) => {
+    if (tagName === "a") {
+      // if app tries to create <a>, return our fake link
+      return fakeLink;
+    }
+    // for all other elements, behave normally
+    return originalCreateElement(tagName);
   });
 
+  // render component and add a habit (so export has data)
+  const { input, addButton } = setup();
+  addHabit(input, addButton, "Drink water");
+
+  // simulate user clicking Export button
+  const exportBtn = screen.getByRole("button", { name: /export/i });
+  fireEvent.click(exportBtn);
+
+  // now verify export flow happened correctly
+
+  // 1. blob URL should be created
+  expect(URL.createObjectURL).toHaveBeenCalled();
+
+  // 2. link should receive that blob URL
+  expect(fakeLink.href).toBe("blob:mock-url");
+
+  // 3. file name should be correct
+  expect(fakeLink.download).toBe("habits.json");
+
+  // 4. click should be triggered → download starts
+  expect(clickMock).toHaveBeenCalled();
+
+  // 5. cleanup should happen (important step)
+  expect(URL.revokeObjectURL).toHaveBeenCalledWith("blob:mock-url");
+});
 
 });

@@ -2,10 +2,17 @@ import React, { useEffect, useState, useRef } from "react";
 import "../styles/Habits.scss";
 
 function Habits() {
+const today = new Date().toISOString().slice(0,10);
 const [habits, setHabitList] = useState(() => {
   try {
     const saved = localStorage.getItem("savedHabits");
-    return saved ? JSON.parse(saved) : [];
+    const parsed = JSON.parse(saved) || [];
+    const habitsWithTodayStatus = parsed.map(item => ({
+      ...item,
+      done: Array.isArray(item.completedDates) && item.completedDates.includes(today),
+  }));
+  
+    return saved ? habitsWithTodayStatus : [];
   } catch {
     return [];
 }
@@ -28,10 +35,37 @@ function handleSubmit(event) {
   if (!text) return;
   setHabitList(prev => [
     ...prev,
-    { id, value: text, done: false }
+    { id, value: text, done: false, completedDates: [] }
   ])
   setInputValue("");
 };
+
+function showStreak(completedDates) {
+  const oneDay = 86400000;
+
+  const dates = [...completedDates]
+    .map(d => new Date(d).getTime())
+    .sort((a, b) => b - a);
+
+  const todayTs = new Date(today).getTime();
+  const yesterdayTs = todayTs - oneDay;
+
+  let start =
+    dates.includes(todayTs) ? todayTs :
+    dates.includes(yesterdayTs) ? yesterdayTs :
+    null;
+
+  if (!start) return 0;
+
+  let streak = 1;
+
+  for (let i = dates.indexOf(start); i < dates.length - 1; i++) {
+    if (dates[i] - dates[i + 1] !== oneDay) break;
+    streak++;
+  }
+
+  return streak;
+}
 
 function onInputChange(e) {
   const value = e.target.value;
@@ -43,12 +77,27 @@ function onDelete(id) {
 };
 
 function onCheckboxChange(id) {
-  setHabitList(prev =>
-    prev.map(item =>
-      item.id === id ? { ...item, done: !item.done } : item
-    )
+  
+  setHabitList(prev => 
+     prev.map(item => {
+      if(item.id !== id) return item;      
+        const completedDates = toggleDates(item.completedDates,today);
+        return { ...item,
+                  completedDates,
+                  done: completedDates.includes(today)  
+                };      
+    })
   );
 };
+
+function toggleDates(completedDates,today) {
+         if (completedDates.includes(today)) {
+          return completedDates.filter(dt => dt !== today)
+         } else {
+           return [...completedDates, today]
+         }
+}
+        
 
 function getVisibleHabits() {
   let visibleHabits = habits
@@ -122,7 +171,7 @@ function isValidHabitList(list) {
     typeof item === "object" && 
     typeof item.done === "boolean" && 
     typeof item.value === "string" &&
-   typeof item.id === "string" || typeof item.id === "number")
+   typeof item.id === "string" || typeof item.id === "number") && Array.isArray(item.completedDates)
 })
 }
 
@@ -171,13 +220,16 @@ return (
         visibleHabits && visibleHabits.length === 0 ? <li> {filter === "all" ? "No Habits yet " : `No ${filter} habits yet`}</li> :
         visibleHabits.map(item =>
           <li key={item.id}>
-            <input type="checkbox" aria-label={`Mark ${item.value} done`} onChange={() => onCheckboxChange(item.id)} checked={item.done} />
+            <input type="checkbox" aria-label={`Mark ${item.value} done`} onChange={() => onCheckboxChange(item.id)} checked={item.done} /> Done Today!
             <input style={{ textDecoration: item.done ? "line-through" : "none", }} 
               value={item.value}
              onChange={(event) =>onInlineEdit(item.id, event.target.value)}
              disabled={item.done}
              aria-label={`Edit ${item.value}`}
              />
+             {showStreak(item.completedDates) > 0 && (
+              <span> 🔥 {showStreak(item.completedDates)} </span>
+              )}
             <button type="button" aria-label={`Delete ${item.value}`} onClick={() => onDelete(item.id)}>Delete</button>
           </li>
         )}
