@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import Habits from "../components/Habits";
 import { vi, describe, beforeEach, expect, afterEach, test } from "vitest";
+import { copySelection } from "@testing-library/user-event/dist/cjs/document/copySelection.js";
 
 function setup() {
   render(<Habits />);
@@ -233,7 +234,7 @@ describe("local storage persistence", () => {
 
   test("loads initial habits from localStorage on mount", () => {
     store.savedHabits = JSON.stringify([
-      { id: "1", value: "Drink water", done: false },
+      { id: "1", value: "Drink water", done: false, completedDates: [] },
     ]);
 
     render(<Habits />);
@@ -357,8 +358,8 @@ describe("Import/Export", () => {
      const fileInput = document.querySelector('input[type="file"]');
      const file = new File([
        JSON.stringify([
-        { id: "1", value: "Read book", done: false },
-        { id: "2", value: "Workout", done: true }
+        { id: "1", value: "Read book", done: false, completedDates: [] },
+        { id: "2", value: "Workout", done: true, completedDates: [] }
       ])
      ],"habit.json", {type: "application/json"})
 
